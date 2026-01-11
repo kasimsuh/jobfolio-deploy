@@ -1,6 +1,6 @@
 // API Client for CoopTrack Backend
 
-const API_BASE_URL = "https://jobfolio-deploy.onrender.com/";
+const API_BASE_URL = "https://jobfolio-deploy.onrender.com/api";
 
 // Helper to get auth token
 const getToken = (): string | null => {
