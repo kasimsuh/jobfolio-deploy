@@ -41,7 +41,7 @@ export function ApplicationForm({ application, onSubmit, onCancel }: Application
         source: application.source,
         url: application.url || '',
         notes: application.notes,
-        resumeVersion: application.resumeVersion?._id || null,
+        resumeVersion: application.resumeVersion?.id || null,
       });
     }
   }, [application]);

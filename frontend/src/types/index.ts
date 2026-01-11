@@ -16,7 +16,7 @@ export interface Application {
   appliedDate: string | null;
   deadline: string | null;
   notes: string;
-  resumeVersion: string | null;
+  resumeVersion: ResumeVersion | null;
   salary: string;
   source: string;
   url?: string;

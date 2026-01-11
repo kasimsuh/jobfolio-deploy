@@ -144,7 +144,7 @@ export function ApplicationDetail({
               <div>
                 <p className="text-xs text-slate-400">Resume Version</p>
                 {application.resumeVersion ? (
-                  <Badge variant="info">{application.resumeVersion}</Badge>
+                  <Badge variant="info">{application.resumeVersion.name}</Badge>
                 ) : (
                   <p className="text-sm text-slate-400">None selected</p>
                 )}

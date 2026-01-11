@@ -3,16 +3,34 @@ import { Application, ResumeVersion, ViewType, ApplicationStatus } from '@/types
 import { applicationsAPI, resumesAPI } from '@/lib/api';
 import type { Application as APIApplication, ResumeVersion as APIResumeVersion } from '@/lib/api';
 
+// Type for application input where resumeVersion is just the ID string
+type ApplicationInput = Omit<Application, 'id' | 'createdAt' | 'updatedAt' | 'resumeVersion'> & {
+  resumeVersion: string | null;
+};
+
+type ApplicationUpdate = Partial<Omit<Application, 'resumeVersion'>> & {
+  resumeVersion?: string | null;
+};
+
 // Transform backend data to frontend format
-const transformApplication = (apiApp: APIApplication): Application => (
-  {
+const transformApplication = (apiApp: APIApplication): Application => {
+  const resumeVersion: ResumeVersion | null = apiApp.resumeVersion ? {
+    id: apiApp.resumeVersion._id,
+    name: apiApp.resumeVersion.name,
+    description: '', // Populated version doesn't include description
+    content: '', // Populated version doesn't include content
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  } : null;
+
+  return {
     ...apiApp,
     id: apiApp._id,
-    resumeVersion: apiApp.resumeVersion || null,
+    resumeVersion,
     createdAt: apiApp.createdAt || new Date().toISOString(),
     updatedAt: apiApp.updatedAt || new Date().toISOString(),
-  }
-);
+  };
+};
 
 const transformResume = (apiResume: APIResumeVersion): ResumeVersion => ({
   ...apiResume,
@@ -54,8 +72,8 @@ interface AppState {
   fetchResumes: () => Promise<void>;
 
   // Actions - Applications
-  addApplication: (app: Omit<Application, 'id' | 'createdAt' | 'updatedAt'>) => Promise<void>;
-  updateApplication: (id: string, updates: Partial<Application>) => Promise<void>;
+  addApplication: (app: ApplicationInput) => Promise<void>;
+  updateApplication: (id: string, updates: ApplicationUpdate) => Promise<void>;
   deleteApplication: (id: string) => Promise<void>;
 
   // Actions - Resumes
