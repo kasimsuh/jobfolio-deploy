@@ -1,5 +1,10 @@
 // Application Status Types
-export type ApplicationStatus = 'saved' | 'applied' | 'interview' | 'offer' | 'rejected';
+export type ApplicationStatus =
+  | "saved"
+  | "applied"
+  | "interview"
+  | "offer"
+  | "rejected";
 
 // Application Interface
 export interface Application {
@@ -11,11 +16,7 @@ export interface Application {
   appliedDate: string | null;
   deadline: string | null;
   notes: string;
-  resumeVersion: {
-    _id: string;
-    name: string;
-    versionNumber: string;
-  } | null;
+  resumeVersion: string | null;
   salary: string;
   source: string;
   url?: string;
@@ -36,7 +37,7 @@ export interface ResumeVersion {
 }
 
 // Diff Types
-export type DiffType = 'added' | 'removed' | 'unchanged';
+export type DiffType = "added" | "removed" | "unchanged";
 
 export interface DiffLine {
   type: DiffType;
@@ -67,7 +68,7 @@ export interface StatusConfig {
 }
 
 // View Types
-export type ViewType = 'dashboard' | 'applications' | 'resumes' | 'compare';
+export type ViewType = "dashboard" | "applications" | "resumes" | "compare";
 
 // Form Types
 export interface ApplicationFormData {
